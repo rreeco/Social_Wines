@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rivenditori extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'macchina', 'ricambi' 
+    ];
 }
