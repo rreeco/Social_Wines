@@ -40,10 +40,10 @@ class RivenditoriController extends Controller      //questa classe diventa la c
             'ricambi'  => 'required',
         ]);
 
-        Rivenditori::create($request<_all());
+        Rivenditori::create($request->all());
 
         return redirect()->route('rivenditori.index')
-        ->with('success', 'Rivenditore creato correttamente.');
+                         ->with('success', 'Rivenditore inserito correttamente.');
     }
 
     /**
