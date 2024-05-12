@@ -12,7 +12,8 @@ class MacchinaController extends Controller
      */
     public function index()
     {
-        //
+        $macchina = Macchina::all();
+        return view('macchina.index', compact('macchina'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MacchinaController extends Controller
      */
     public function create()
     {
-        //
+        return view('macchina.create');
     }
 
     /**
@@ -28,7 +29,20 @@ class MacchinaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate ([
+            'marca' => 'required',
+            'modello' => 'required',
+            'immatricolazione' => 'required',
+            'isUsato' => 'required',
+            'prezzo' => 'required',
+            'rivenditori' => 'required',
+            'ricambi' => 'required',
+        ]);
+
+        Macchina::create($request -> all());
+
+        return redirect() ->route('macchina.index')
+                          -> with('success', 'Macchina inserita correttamente');
     }
 
     /**
@@ -36,7 +50,8 @@ class MacchinaController extends Controller
      */
     public function show(Macchina $macchina)
     {
-        //
+        $macchina = Macchina::findOrFail($id);
+        return view('macchina.edit', compact('macchina'));
     }
 
     /**
@@ -44,7 +59,8 @@ class MacchinaController extends Controller
      */
     public function edit(Macchina $macchina)
     {
-        //
+        $macchina = Macchina::findOrFail($id);
+        return view('macchina.edit', compact('macchina'));
     }
 
     /**
@@ -52,7 +68,21 @@ class MacchinaController extends Controller
      */
     public function update(Request $request, Macchina $macchina)
     {
-        //
+        $request->validate ([
+            'marca' => 'required',
+            'modello' => 'required',
+            'immatricolazione' => 'required',
+            'isUsato' => 'required',
+            'prezzo' => 'required',
+            'rivenditori' => 'required',
+            'ricambi' => 'required',
+        ]);
+
+        $macchina = Macchina::findOrFail($id);
+        $macchina -> update($request -> all());
+
+        return redirect() -> route('macchina.index')
+                          -> with ('success', 'Macchina aggiornata con successo');
     }
 
     /**
@@ -60,6 +90,10 @@ class MacchinaController extends Controller
      */
     public function destroy(Macchina $macchina)
     {
-        //
+        $macchina = Macchina::findOrFail($id);
+        $macchina -> delete();
+
+        return redirect() -> route('macchina.index')
+                          -> with ('success', 'Macchina eliminata con successo');
     }
 }
