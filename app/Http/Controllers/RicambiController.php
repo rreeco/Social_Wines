@@ -12,7 +12,8 @@ class RicambiController extends Controller
      */
     public function index()
     {
-        //
+        $ricambi = Ricambi::all();
+        return view('ricambi.index', compact('ricambi'));
     }
 
     /**
@@ -20,7 +21,7 @@ class RicambiController extends Controller
      */
     public function create()
     {
-        //
+        return view('ricambi.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class RicambiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate ([
+            'matricola' => 'required',
+            'componente' => 'required',
+            'prezzo' => 'required',
+            'rivenditori' => 'required',
+            'macchina' => 'required',
+        ]);
+
+        Ricambi::create($request->all());
+
+        return redirect () -> route('ricambi.index')
+                           -> with('success', 'Ricambio inserito correttamente.');
     }
 
     /**
@@ -36,7 +48,8 @@ class RicambiController extends Controller
      */
     public function show(Ricambi $ricambi)
     {
-        //
+        $ricambi = Ricambi::findOrFail($id);
+        return view('ricambi.show', compact('ricambi'));
     }
 
     /**
@@ -44,7 +57,8 @@ class RicambiController extends Controller
      */
     public function edit(Ricambi $ricambi)
     {
-        //
+        $ricambi = Ricambi::findOrFail($id);
+        return view('ricambi.edit', compact('ricambi'));
     }
 
     /**
@@ -52,7 +66,19 @@ class RicambiController extends Controller
      */
     public function update(Request $request, Ricambi $ricambi)
     {
-        //
+        $request -> validate([
+            'matricola' => 'required',
+            'componente' => 'required',
+            'prezzo' => 'required',
+            'rivenditori' => 'required',
+            'macchina' => 'required',
+        ]);
+
+        $ricambi = Ricambi::findOrFail($id);
+        $ricambi -> update($request->all());
+
+        return redirect() -> route('ricambi.index')
+                          -> with ('success', 'Ricambio aggiornato con successo.');
     }
 
     /**
@@ -60,6 +86,10 @@ class RicambiController extends Controller
      */
     public function destroy(Ricambi $ricambi)
     {
-        //
+        $ricambi = Ricambi::findOrFail($id);
+        $ricambi->delete();
+
+        return redirect() -> route('ricambi.index')
+                          -> with ('success', 'Ricambio eliminato con successo.');
     }
 }
