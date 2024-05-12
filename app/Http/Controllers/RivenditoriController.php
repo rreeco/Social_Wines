@@ -43,7 +43,7 @@ class RivenditoriController extends Controller      //questa classe diventa la c
         Rivenditori::create($request->all());
 
         return redirect()->route('rivenditori.index')
-                         ->with('success', 'Rivenditore inserito correttamente.');
+                         ->with ('success', 'Rivenditore inserito correttamente.');
     }
 
     /**
@@ -75,10 +75,10 @@ class RivenditoriController extends Controller      //questa classe diventa la c
         ]);
 
         $rivenditori = Rivenditori::findOrFail($id);
-        $rivenditori->update($request->all());
+        $rivenditori -> update($request->all());
 
         return redirect()->route('rivenditori.index')
-                         ->with('success', 'Rivenditore aggiornato con successo.');
+                         ->with ('success', 'Rivenditore aggiornato con successo.');
     }
 
     /**
@@ -87,9 +87,9 @@ class RivenditoriController extends Controller      //questa classe diventa la c
     public function destroy(Rivenditori $rivenditori)
     {
         $rivenditori = Rivenditori::findOrFail($id);
-        $rivenditori->delete();
+        $rivenditori -> delete();
 
         return redirect()->route('rivenditori.index')
-                         ->with('success', 'Rivenditore eliminato con successo.');
+                         ->with( 'success', 'Rivenditore eliminato con successo.');
     }
 }
